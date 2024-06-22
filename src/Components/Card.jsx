@@ -1,20 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import { useFavContext } from "./utils/Context";
 
 
-const Card = ({ name, username, id }) => {
+const Card = ({  item, name, username, id }) => {
 
-  const addFav = ()=>{
-    // Aqui iria la logica para agregar la Card en el localStorage
-  }
+  const { dispatch } = useFavContext()
+
 
   return (
     <div className="card">
-        {/* En cada card deberan mostrar en name - username y el id */}
-
-        {/* No debes olvidar que la Card a su vez servira como Link hacia la pagina de detalle */}
-
-        {/* Ademas deberan integrar la logica para guardar cada Card en el localStorage */}
-        <button onClick={addFav} className="favButton">Add fav</button>
+       
+       
+        <Link to={"/Detail/" + item.id}>
+        {<h4>Name: {item.name}</h4>}
+        </Link>
+        {<h5>Username: {item.username}</h5>}
+        {<p>{item.id}</p>}
+ 
+        <button onClick={() => dispatch({type: "ADD_FAV", payload: item})} className="favButton">Add fav</button>
     </div>
   );
 };
